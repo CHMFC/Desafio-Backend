@@ -112,7 +112,13 @@ public class QuadrinhoController {
         return ResponseEntity.ok(nomes);
     }
 
-    @GetMapping("/{id}/cupons")
+    /**
+     * Endpoint para buscar cupons associados à raridade de um quadrinho específico.
+     *
+     * @param id Identificador do quadrinho pelo qual os cupons serão buscados.
+     * @return Resposta contendo a lista de cupons associados à raridade do quadrinho e o status HTTP 200 (OK).
+     */
+    @GetMapping("/buscar/cupons/{id}")
     public ResponseEntity<List<Cupom>> getCuponsByQuadrinho(@PathVariable Long id) {
         Quadrinho quadrinho = quadrinhoService.buscarPorId(id);
         List<Cupom> cupons = cupomService.getCuponsPorRaridade(quadrinho.getRaridade());
