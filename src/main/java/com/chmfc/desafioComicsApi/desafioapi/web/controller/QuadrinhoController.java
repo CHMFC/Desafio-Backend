@@ -48,6 +48,13 @@ public class QuadrinhoController {
         return ResponseEntity.ok(quadrinho);
     }
 
+    /**
+     * Endpoint para atualizar a raridade de um quadrinho pelo seu identificador.
+     *
+     * @param id Identificador do quadrinho cuja raridade será atualizada.
+     * @param novaRaridade Nova raridade a ser atribuída ao quadrinho.
+     * @return Resposta HTTP 200 (OK) com o quadrinho atualizado ou HTTP 400 (Bad Request) em caso de erro.
+     */
     @PutMapping("/{id}/raridade")
     public ResponseEntity<?> updateRaridade(@PathVariable Long id, @RequestBody Quadrinho.Raridade novaRaridade) {
         try {
@@ -56,6 +63,18 @@ public class QuadrinhoController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao atualizar a raridade: " + e.getMessage());
         }
+    }
+
+    /**
+     * Endpoint para deletar um quadrinho pelo id.
+     *
+     * @param id Identificador do quadrinho a ser deletado.
+     * @return Resposta contendo o status HTTP 204 (No Content) se a exclusão for bem-sucedida.
+     */
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletarQuadrinho(@PathVariable Long id) {
+        quadrinhoService.deletar(id);
+        return ResponseEntity.noContent().build();  // Retorna status 204 se a exclusão for bem-sucedida
     }
 
     /**
